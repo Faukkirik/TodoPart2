@@ -1,16 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
 import {todolistAPI} from "../api/todolist-api";
 
 export default {
     title: 'API'
 }
-const settings = {
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'a22037d2-5c98-4d70-ad45-1b7b1066eaea'
-    }
-}
+
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
@@ -59,3 +53,54 @@ export const UpdateTodolistTitle = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
+export const GetTasks = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = "bb51611e-12f5-447a-9077-250359f7ee29"
+        todolistAPI.getTasks(todolistId)
+            .then((res)=>{
+                setState(res.data)
+            })
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+export const CreateTasks = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const title = "hello"
+        const todolistId = "bb51611e-12f5-447a-9077-250359f7ee29"
+        todolistAPI.createTasks(title, todolistId)
+            .then((res)=>{
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
+export const DeleteTasks = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = "bb51611e-12f5-447a-9077-250359f7ee29"
+        const taskId = "f23aa522-9695-4f3c-a76d-d098e2d91ad4"
+        todolistAPI.deleteTasks(todolistId, taskId)
+            .then((res)=>{
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
+export const UpdateTasks = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = "bb51611e-12f5-447a-9077-250359f7ee29"
+        const taskId = "b63d5b06-e5a8-44da-b937-861a57c6e1c9"
+        const newTitle = 'NEW'
+        todolistAPI.updateTasks(todolistId, taskId, newTitle)
+            .then((res)=>{
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
